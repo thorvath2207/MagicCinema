@@ -3,8 +3,7 @@ package magiccinema.unideb.hu.models;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
 import javax.persistence.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "movies")
@@ -18,11 +17,16 @@ public class Movie implements IEntity {
 
     @Column(name = "title", nullable = false)
     private String title;
-    private BufferedImage image;
 
-    @ManyToMany(mappedBy = "")
-    private ArrayList<Actor> actors;
-    private ArrayList<Genre> genres;
+    @Lob
+    @Column(name = "cover_picture", nullable = true)
+    private byte[] image;
+
+    @ManyToMany
+    private Collection<Actor> actorsCollection;
+
+    @ManyToMany
+    private Collection<Genre> genresCollection;
 
     public Movie() {
 
@@ -36,39 +40,39 @@ public class Movie implements IEntity {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
-    }
-
-    public ArrayList<Actor> getActors() {
-        return actors;
-    }
-
-    public void setActors(ArrayList<Actor> actors) {
-        this.actors = actors;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    public void setGenres(ArrayList<Genre> genres) {
-        this.genres = genres;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public ArrayList<Genre> getGenres() {
-        return genres;
+    public Collection<Actor> getActorsCollection() {
+        return actorsCollection;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setActorsCollection(Collection<Actor> actorsCollection) {
+        this.actorsCollection = actorsCollection;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Collection<Genre> getGenresCollection() {
+        return genresCollection;
+    }
+
+    public void setGenresCollection(Collection<Genre> genres) {
+        this.genresCollection = genres;
     }
 }

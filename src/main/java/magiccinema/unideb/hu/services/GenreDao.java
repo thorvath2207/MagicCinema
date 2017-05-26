@@ -2,7 +2,7 @@ package magiccinema.unideb.hu.services;
 
 import magiccinema.unideb.hu.App;
 import magiccinema.unideb.hu.models.Genre;
-import magiccinema.unideb.hu.services.interfaces.IGenreDao;
+import magiccinema.unideb.hu.services.interfaces.dao.IGenreDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

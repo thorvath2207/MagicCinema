@@ -1,4 +1,6 @@
-package magiccinema.unideb.hu.services.interfaces;
+package magiccinema.unideb.hu.services.interfaces.dao;
+
+import magiccinema.unideb.hu.services.interfaces.IService;
 
 import java.util.List;
 

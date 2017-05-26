@@ -7,7 +7,9 @@
     <persistence-unit name="cinema-db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
+        <class>magiccinema.unideb.hu.models.Actor</class>
         <class>magiccinema.unideb.hu.models.Genre</class>
+        <class>magiccinema.unideb.hu.models.Movie</class>
 
         <properties>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

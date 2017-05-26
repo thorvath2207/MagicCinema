@@ -15,8 +15,6 @@ public class MainController implements IController {
     @FXML
     public void handleAdminToolsClick(MouseEvent arg0) throws ServiceNotFoundException {
         GenreDao dao = (GenreDao)ServiceLocator.getService("GenreDao");
-        Genre toAdd = new Genre("Action");
-        dao.add(toAdd);
         List<Genre> genres = dao.getAll();
         System.out.println(genres.size());
     }

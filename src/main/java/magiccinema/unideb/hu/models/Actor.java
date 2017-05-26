@@ -3,6 +3,7 @@ package magiccinema.unideb.hu.models;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "actor")
@@ -15,6 +16,9 @@ public class Actor implements IEntity {
 
     @Column(name = "actor_name", nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "actorsCollection")
+    private Collection<Movie> movieCollection;
 
     public Actor() {
         super();
