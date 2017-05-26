@@ -49,6 +49,10 @@ public class Navigation implements INavigation {
         this.showViewInMainWindow(viewName, false, parameter);
     }
 
+    public void showViewInMainWindow(Views viewName, boolean resetData) {
+        this.showViewInMainWindow(viewName, resetData, null);
+    }
+
     public void showViewInMainWindow(Views viewName) {
         this.showViewInMainWindow(viewName, false, null);
     }

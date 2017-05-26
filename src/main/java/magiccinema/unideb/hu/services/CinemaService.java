@@ -45,7 +45,24 @@ public class CinemaService implements ICinemaService {
         return upComingShowTimes;
     }
 
-    public List<ShowTime> getUpComingShowTimesByMovieId() {
+    @Override
+    public int getAvailableSeatsByShowTimeId(int showTimeId) {
+        ShowTime showTime = this.showTimeDao.getById(showTimeId);
+        int size = showTime.getTheater().getSeatCollection().size();
+        int reservedTickets = (int) this.ticketDao.getAll()
+                .stream()
+                .filter(t -> t.getShowTime().getId() == showTimeId)
+                .count();
+
+        int result = size - reservedTickets;
+        if (result < 0) {
+            return 0;
+        }
+
+        return result;
+    }
+
+    public List<ShowTime> getUpComingShowTimes() {
         List<ShowTime> upComingShowTimes = this.showTimeDao.getAll();
         upComingShowTimes = upComingShowTimes
                 .stream()
@@ -56,13 +73,18 @@ public class CinemaService implements ICinemaService {
 
     public Collection<Movie> getUpcomingMovies() {
         List<Movie> movies;
-        List<ShowTime> showTimes = this.getUpComingShowTimesByMovieId();
+        List<ShowTime> showTimes = this.getUpComingShowTimes();
         movies = showTimes
                 .stream()
                 .map(ShowTime::getMovie)
                 .distinct()
                 .collect(Collectors.toList());
         return movies;
+    }
+
+    @Override
+    public int upComingShowTimesCounter(int movieId) {
+        return this.getUpComingShowTimesByMovieId(movieId).size();
     }
 
     @Override

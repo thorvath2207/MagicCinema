@@ -6,6 +6,7 @@ import magiccinema.unideb.hu.utility.Navigation.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
+import magiccinema.unideb.hu.utility.interfaces.IEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,11 @@ public class SeatSelectorController implements IController {
     }
     @Override
     public void resetData() {
+
+    }
+
+    @Override
+    public void setData(IEntity entity) {
 
     }
 

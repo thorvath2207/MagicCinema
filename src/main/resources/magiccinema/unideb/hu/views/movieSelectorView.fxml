@@ -22,12 +22,23 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Label text="Title:" />
+            <Label text="Genres:" GridPane.rowIndex="1" />
+            <Label text="Actors:" GridPane.rowIndex="2" />
+            <Label text="ShowTimes:" GridPane.rowIndex="3" />
+            <Label fx:id="movieTitleLabel" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="movieGenresLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="movieActorsLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="movieShowTimesLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
       </GridPane>
    </center>
    <left>
-      <TableView fx:id="movieTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="moviesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="movieTitleColumn" prefWidth="75.0" text="C1" />
         </columns>
