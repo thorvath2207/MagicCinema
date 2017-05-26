@@ -1,5 +1,7 @@
 package magiccinema.unideb.hu.models;
 
-public class Ticket {
+import magiccinema.unideb.hu.utility.interfaces.IEntity;
+
+public class Ticket implements IEntity {
     
 }

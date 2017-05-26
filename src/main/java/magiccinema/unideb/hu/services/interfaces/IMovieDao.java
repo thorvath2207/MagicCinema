@@ -1,4 +1,6 @@
 package magiccinema.unideb.hu.services.interfaces;
 
-public interface IMovieDao extends ICinemaDao {
+import magiccinema.unideb.hu.models.Movie;
+
+public interface IMovieDao extends IDao<Movie> {
 }

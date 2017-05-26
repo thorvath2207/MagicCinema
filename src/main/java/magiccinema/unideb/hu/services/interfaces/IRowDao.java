@@ -1,4 +1,6 @@
 package magiccinema.unideb.hu.services.interfaces;
 
-public interface IRowDao extends ICinemaDao {
+import magiccinema.unideb.hu.models.Row;
+
+public interface IRowDao extends IDao<Row> {
 }

@@ -1,4 +1,6 @@
 package magiccinema.unideb.hu.services.interfaces;
 
-public interface IShowTimeDao extends ICinemaDao {
+import magiccinema.unideb.hu.models.ShowTime;
+
+public interface IShowTimeDao extends IDao<ShowTime> {
 }
