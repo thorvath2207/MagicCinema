@@ -3,7 +3,7 @@ package magiccinema.unideb.hu.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.Navigation;
+import magiccinema.unideb.hu.utility.Navigation.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;

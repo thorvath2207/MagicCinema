@@ -1,10 +1,11 @@
-package magiccinema.unideb.hu.utility;
+package magiccinema.unideb.hu.utility.Navigation;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import magiccinema.unideb.hu.services.interfaces.INavigation;
+import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.interfaces.IView;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class Navigation implements INavigation {
         logger.trace("Navigation service loaded.");
     }
 
-    public void showViewInMainWindow(Views viewName) {
+    public void showViewInMainWindow(Views viewName, boolean resetData, NavigationParameter parameter) {
         logger.debug(String.format("Navigation requested to %s", viewName.toString()));
         IView view = this.findView(viewName);
 
@@ -31,9 +32,25 @@ public class Navigation implements INavigation {
             Node viewNode = view.getViewNode();
 
             if (viewNode != null) {
+                if (view.getController() != null && resetData) {
+                    view.getController().resetData();
+                }
+
+                if (view.getController() != null && parameter != null){
+                    view.getController().setData(parameter.getEntity());
+                }
+
                 this.rootLayout.setCenter(viewNode);
             }
         }
+    }
+
+    public void showViewInMainWindow(Views viewName, NavigationParameter parameter) {
+        this.showViewInMainWindow(viewName, false, parameter);
+    }
+
+    public void showViewInMainWindow(Views viewName) {
+        this.showViewInMainWindow(viewName, false, null);
     }
 
     public void initRootLayout() {
@@ -44,7 +61,7 @@ public class Navigation implements INavigation {
         IView rootView = this.findView(Views.RootLayout);
 
         if (rootView != null) {
-            this.rootLayout = (BorderPane)rootView.getViewNode();
+            this.rootLayout = (BorderPane) rootView.getViewNode();
             if (this.rootLayout != null) {
                 Scene scene = new Scene(this.rootLayout);
                 this.primaryStage.setScene(scene);
