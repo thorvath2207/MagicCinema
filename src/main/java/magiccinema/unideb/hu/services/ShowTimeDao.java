@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class ShowTimeDao implements IShowTimeDao {
 
     protected static Logger logger = LoggerFactory.getLogger(ShowTimeDao.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public ShowTimeDao(EntityManager entityManager) {
@@ -21,12 +23,12 @@ public class ShowTimeDao implements IShowTimeDao {
 
     @Override
     public List<ShowTime> getAll() {
-        return null;
+        return this.entityManager.createNamedQuery("ShowTime.GET_ALL").getResultList();
     }
 
     @Override
     public ShowTime getById(int id) {
-        return null;
+        return this.entityManager.find(ShowTime.class, id);
     }
 
     @Override
@@ -36,12 +38,16 @@ public class ShowTimeDao implements IShowTimeDao {
 
     @Override
     public void remove(ShowTime entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void add(ShowTime entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

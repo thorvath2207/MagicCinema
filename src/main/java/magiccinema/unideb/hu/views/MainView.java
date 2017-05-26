@@ -15,7 +15,7 @@ public class MainView implements IView {
     protected static Logger logger = LoggerFactory.getLogger(MainView.class);
 
     public MainView() {
-        logger.trace("MainView ctor.");
+        logger.trace("MainView constructed.");
         this.initialize();
     }
 

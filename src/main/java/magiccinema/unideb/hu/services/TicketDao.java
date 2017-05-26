@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class TicketDao implements ITicketDao {
 
     protected static Logger logger = LoggerFactory.getLogger(TicketDao.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public TicketDao(EntityManager entityManager) {
@@ -21,12 +23,12 @@ public class TicketDao implements ITicketDao {
 
     @Override
     public List<Ticket> getAll() {
-        return null;
+        return this.entityManager.createNamedQuery("Ticket.GET_ALL").getResultList();
     }
 
     @Override
     public Ticket getById(int id) {
-        return null;
+        return this.entityManager.find(Ticket.class, id);
     }
 
     @Override
@@ -36,12 +38,16 @@ public class TicketDao implements ITicketDao {
 
     @Override
     public void remove(Ticket entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void add(Ticket entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

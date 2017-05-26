@@ -7,12 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class GenreDao implements IGenreDao {
 
     protected static Logger logger = LoggerFactory.getLogger(App.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public GenreDao(EntityManager entityManager) {
@@ -27,12 +29,12 @@ public class GenreDao implements IGenreDao {
 
     @Override
     public List<Genre> getAll() {
-        return entityManager.createNamedQuery("Genre.GET_ALL").getResultList();
+        return this.entityManager.createNamedQuery("Genre.GET_ALL").getResultList();
     }
 
     @Override
     public Genre getById(int id) {
-        return null;
+       return this.entityManager.find(Genre.class, id);
     }
 
     @Override
@@ -42,7 +44,9 @@ public class GenreDao implements IGenreDao {
 
     @Override
     public void remove(Genre entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

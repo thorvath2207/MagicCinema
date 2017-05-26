@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class SeatDao implements ISeatDao {
     protected static Logger logger = LoggerFactory.getLogger(SeatDao.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public SeatDao(EntityManager entityManager) {
@@ -20,12 +22,12 @@ public class SeatDao implements ISeatDao {
 
     @Override
     public List<Seat> getAll() {
-        return null;
+        return this.entityManager.createNamedQuery("Seat.GET_ALL").getResultList();
     }
 
     @Override
     public Seat getById(int id) {
-        return null;
+        return this.entityManager.find(Seat.class, id);
     }
 
     @Override
@@ -35,12 +37,16 @@ public class SeatDao implements ISeatDao {
 
     @Override
     public void remove(Seat entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void add(Seat entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

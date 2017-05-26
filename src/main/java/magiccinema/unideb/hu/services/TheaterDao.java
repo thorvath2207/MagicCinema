@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class TheaterDao implements ITheaterDao {
 
     protected static Logger logger = LoggerFactory.getLogger(TheaterDao.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public TheaterDao(EntityManager entityManager) {
@@ -21,12 +23,12 @@ public class TheaterDao implements ITheaterDao {
 
     @Override
     public List<Theater> getAll() {
-        return null;
+        return this.entityManager.createNamedQuery("Theater.GET_ALL").getResultList();
     }
 
     @Override
     public Theater getById(int id) {
-        return null;
+        return this.entityManager.find(Theater.class, id);
     }
 
     @Override
@@ -36,12 +38,16 @@ public class TheaterDao implements ITheaterDao {
 
     @Override
     public void remove(Theater entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void add(Theater entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

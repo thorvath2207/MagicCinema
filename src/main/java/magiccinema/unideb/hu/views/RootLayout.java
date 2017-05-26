@@ -12,7 +12,12 @@ import java.io.IOException;
 
 @AutoService(IView.class)
 public class RootLayout implements IView {
-    protected static Logger logger = LoggerFactory.getLogger(MainView.class);
+    protected static Logger logger = LoggerFactory.getLogger(RootLayout.class);
+
+    public RootLayout() {
+        logger.trace("RootLayout constructed");
+        this.initialize();
+    }
 
     @Override
     public String getName() {
@@ -34,5 +39,9 @@ public class RootLayout implements IView {
     @Override
     public Views getViewType() {
         return Views.RootLayout;
+    }
+
+    private void initialize() {
+
     }
 }

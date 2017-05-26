@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class MovieDao implements IMovieDao{
+public class MovieDao implements IMovieDao {
 
     protected static Logger logger = LoggerFactory.getLogger(MovieDao.class);
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public MovieDao(EntityManager entityManager) {
@@ -21,12 +23,12 @@ public class MovieDao implements IMovieDao{
 
     @Override
     public List<Movie> getAll() {
-        return null;
+        return this.entityManager.createNamedQuery("Movie.GET_ALL").getResultList();
     }
 
     @Override
     public Movie getById(int id) {
-        return null;
+        return this.entityManager.find(Movie.class, id);
     }
 
     @Override
@@ -36,12 +38,16 @@ public class MovieDao implements IMovieDao{
 
     @Override
     public void remove(Movie entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void add(Movie entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
