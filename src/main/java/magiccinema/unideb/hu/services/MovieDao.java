@@ -33,7 +33,7 @@ public class MovieDao implements IMovieDao {
 
     @Override
     public void modify(Movie entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override

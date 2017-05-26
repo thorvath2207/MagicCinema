@@ -49,7 +49,7 @@ public class Seat implements IEntity {
         this.seatNumber = seatNumber;
     }
 
-    public boolean isAvailable() {
+    public boolean getIsAvailable() {
         return isAvailable;
     }
 

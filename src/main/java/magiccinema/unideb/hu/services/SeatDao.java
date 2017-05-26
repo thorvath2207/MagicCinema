@@ -32,7 +32,7 @@ public class SeatDao implements ISeatDao {
 
     @Override
     public void modify(Seat entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override

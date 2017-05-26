@@ -33,7 +33,7 @@ public class ShowTimeDao implements IShowTimeDao {
 
     @Override
     public void modify(ShowTime entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override

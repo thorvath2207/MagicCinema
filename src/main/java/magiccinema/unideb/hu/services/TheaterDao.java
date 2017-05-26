@@ -33,7 +33,7 @@ public class TheaterDao implements ITheaterDao {
 
     @Override
     public void modify(Theater entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override

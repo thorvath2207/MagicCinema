@@ -51,6 +51,9 @@ public final class App extends Application {
         ServiceLocator.registerService(new TheaterDao(entityManager));
         ServiceLocator.registerService(new TicketDao(entityManager));
 
+        logger.trace("Register Magic Cinema service...");
+        ServiceLocator.registerService(new CinemaService());
+
         navigationService.initRootLayout();
 
         navigationService.showViewInMainWindow(Views.MainView);

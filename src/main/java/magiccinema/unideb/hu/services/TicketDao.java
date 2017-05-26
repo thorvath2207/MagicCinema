@@ -33,7 +33,7 @@ public class TicketDao implements ITicketDao {
 
     @Override
     public void modify(Ticket entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override

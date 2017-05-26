@@ -17,6 +17,7 @@ public class RootLayoutController implements IController {
 
     private final Navigation navigationService;
     private final DialogService dialogService;
+
     public RootLayoutController() throws ServiceNotFoundException {
         this.navigationService = (Navigation)ServiceLocator.getService("Navigation");
         this.dialogService = (DialogService)ServiceLocator.getService("DialogService");

@@ -1,6 +1,5 @@
 package magiccinema.unideb.hu.services;
 
-import magiccinema.unideb.hu.App;
 import magiccinema.unideb.hu.models.Genre;
 import magiccinema.unideb.hu.services.interfaces.dao.IGenreDao;
 import org.slf4j.Logger;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class GenreDao implements IGenreDao {
 
-    protected static Logger logger = LoggerFactory.getLogger(App.class);
+    protected static Logger logger = LoggerFactory.getLogger(GenreDao.class);
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -39,7 +38,7 @@ public class GenreDao implements IGenreDao {
 
     @Override
     public void modify(Genre entity) {
-
+        this.entityManager.merge(entity);
     }
 
     @Override
