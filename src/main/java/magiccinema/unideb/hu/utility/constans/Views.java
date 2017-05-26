@@ -6,4 +6,5 @@ public enum Views {
     MovieSelectorView,
     ShowTimeSelectorView,
     SeatSelectorView,
+    AdminView,
 }

@@ -23,6 +23,7 @@ public final class App extends Application {
     public static void main(String[] args) {
         logger.info(String.format("The magic is starting..."));
 
+        logger.trace("Create entity manager...");
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cinema-db");
         entityManager = factory.createEntityManager();
 
@@ -33,9 +34,6 @@ public final class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setOnCloseRequest((e -> Platform.exit()));
-        logger.trace("Create entity manager...");
-
-
 
         logger.trace("Registering services...");
         Navigation navigationService = new Navigation(primaryStage);
@@ -43,7 +41,8 @@ public final class App extends Application {
         ServiceLocator.registerService(navigationService);
         ServiceLocator.registerService(new DialogService());
 
-        logger.trace("Register DAO services...");
+        logger.trace("Registering DAO services...");
+        ServiceLocator.registerService(new ActorDao(entityManager));
         ServiceLocator.registerService(new GenreDao(entityManager));
         ServiceLocator.registerService(new MovieDao(entityManager));
         ServiceLocator.registerService(new SeatDao(entityManager));
@@ -51,7 +50,7 @@ public final class App extends Application {
         ServiceLocator.registerService(new TheaterDao(entityManager));
         ServiceLocator.registerService(new TicketDao(entityManager));
 
-        logger.trace("Register Magic Cinema service...");
+        logger.trace("Registering Magic Cinema service...");
         ServiceLocator.registerService(new CinemaService());
 
         navigationService.initRootLayout();

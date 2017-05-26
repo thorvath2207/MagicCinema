@@ -18,6 +18,7 @@ public class CinemaService implements ICinemaService {
 
     protected static Logger logger = LoggerFactory.getLogger(CinemaService.class);
 
+    private final IActorDao actorDao;
     private final IGenreDao genreDao;
     private final IMovieDao movieDao;
     private final ISeatDao seatDao;
@@ -26,6 +27,7 @@ public class CinemaService implements ICinemaService {
     private final ITicketDao ticketDao;
 
     public CinemaService() throws ServiceNotFoundException {
+        this.actorDao = (IActorDao) ServiceLocator.getService("ActorDao");
         this.genreDao = (IGenreDao) ServiceLocator.getService("GenreDao");
         this.movieDao = (IMovieDao) ServiceLocator.getService("MovieDao");
         this.seatDao = (ISeatDao) ServiceLocator.getService("SeatDao");
@@ -39,9 +41,9 @@ public class CinemaService implements ICinemaService {
     public List<ShowTime> getUpComingShowTimesByMovieId(int movieId) {
         List<ShowTime> upComingShowTimes = this.showTimeDao.getAll();
         upComingShowTimes = upComingShowTimes
-                                    .stream()
-                                    .filter(s -> s.getTime().isBefore(LocalDateTime.now()) && s.getMovie().getId() == movieId)
-                                    .collect(Collectors.toList());
+                .stream()
+                .filter(s -> s.getTime().isAfter(LocalDateTime.now()) && s.getMovie().getId() == movieId)
+                .collect(Collectors.toList());
         return upComingShowTimes;
     }
 
@@ -66,7 +68,7 @@ public class CinemaService implements ICinemaService {
         List<ShowTime> upComingShowTimes = this.showTimeDao.getAll();
         upComingShowTimes = upComingShowTimes
                 .stream()
-                .filter(s -> s.getTime().isBefore(LocalDateTime.now()))
+                .filter(s -> s.getTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
         return upComingShowTimes;
     }

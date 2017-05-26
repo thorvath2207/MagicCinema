@@ -26,7 +26,7 @@ public class MainController implements IController {
 
     @FXML
     public void handleAdminToolsClick(MouseEvent arg0) {
-
+        this.navigationService.showViewInMainWindow(Views.AdminView);
     }
 
     @FXML

@@ -92,7 +92,7 @@ public class MovieSelectorController implements IController {
 
     @FXML
     public void handleCancelClick(MouseEvent args) {
-
+        this.navigationService.showViewInMainWindow(Views.MainView);
     }
 
     private void showMovieDetails(Movie movie) {

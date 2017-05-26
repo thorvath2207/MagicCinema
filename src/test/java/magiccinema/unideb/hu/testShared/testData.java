@@ -131,4 +131,10 @@ public class testData {
 
         return reservations;
     }
+
+    public static Collection<ShowTime> getTestShowTimes(){
+        ArrayList<ShowTime> showTimes = new ArrayList<>();
+
+        return showTimes;
+    }
 }

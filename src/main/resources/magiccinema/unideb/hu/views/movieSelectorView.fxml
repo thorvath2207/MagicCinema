@@ -40,7 +40,7 @@
    <left>
       <TableView fx:id="moviesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="movieTitleColumn" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="movieTitleColumn" prefWidth="75.0" text="Title" />
         </columns>
       </TableView>
    </left>
