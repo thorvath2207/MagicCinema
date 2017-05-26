@@ -12,32 +12,24 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 @AutoService(IView.class)
-public class MainView implements IView {
-    protected static Logger logger = LoggerFactory.getLogger(MainView.class);
+public class SeatSelectorView implements IView {
+    protected static Logger logger = LoggerFactory.getLogger(SeatSelectorView.class);
 
     private IController controller;
 
-    public MainView() {
-        logger.trace("MainView constructed.");
+    public SeatSelectorView() {
+        logger.trace("SeatSelectorView constructed.");
         this.initialize();
     }
 
     @Override
     public String getName() {
-        return "mainview";
-    }
-
-    @Override
-    public Views getViewType() { return Views.MainView; }
-
-    @Override
-    public IController getController() {
-        return this.controller;
+        return "SeatSelectorView";
     }
 
     @Override
     public Node getViewNode() {
-        FXMLLoader loader = new FXMLLoader(MainView.class.getResource("mainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(MainView.class.getResource("seatSelectorView.fxml"));
         try {
             Node node = loader.load();
             this.controller = loader.getController();
@@ -46,6 +38,16 @@ public class MainView implements IView {
             logger.error("%s cant find resource", getName());
             return null;
         }
+    }
+
+    @Override
+    public Views getViewType() {
+        return Views.SeatSelectorView;
+    }
+
+    @Override
+    public IController getController() {
+        return this.controller;
     }
 
     private void initialize() {

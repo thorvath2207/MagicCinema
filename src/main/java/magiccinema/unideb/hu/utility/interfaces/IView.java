@@ -9,4 +9,6 @@ public interface IView {
     Node getViewNode();
 
     Views getViewType();
+
+    IController getController();
 }

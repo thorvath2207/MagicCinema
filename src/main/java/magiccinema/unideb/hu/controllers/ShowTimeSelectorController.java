@@ -21,4 +21,9 @@ public class ShowTimeSelectorController implements IController {
         this.dialogService = (DialogService)ServiceLocator.getService("DialogService");
         this.cinemaService = (ICinemaService)ServiceLocator.getService("CinemaService");
     }
+
+    @Override
+    public void resetData() {
+
+    }
 }

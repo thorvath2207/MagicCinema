@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.utility.DialogService;
 import magiccinema.unideb.hu.utility.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
+import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
 import org.slf4j.Logger;
@@ -29,6 +30,11 @@ public class MainController implements IController {
 
     @FXML
     public void handleReservationClick(MouseEvent arg0) {
+        this.navigationService.showViewInMainWindow(Views.MovieSelectorView);
+    }
+
+    @Override
+    public void resetData() {
 
     }
 }

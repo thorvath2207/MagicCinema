@@ -37,4 +37,9 @@ public class RootLayoutController implements IController {
     public void onAboutMenuItem(ActionEvent e){
         this.dialogService.showAboutPopup();
     }
+
+    @Override
+    public void resetData() {
+
+    }
 }
