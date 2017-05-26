@@ -8,6 +8,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "reservation")
+@NamedQueries({
+        @NamedQuery(name = "Reservation.GET_ALL", query = "SELECT r FROM Reservation r")
+})
 public class Reservation implements IEntity {
 
     @Id

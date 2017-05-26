@@ -10,6 +10,13 @@
         <class>magiccinema.unideb.hu.models.Actor</class>
         <class>magiccinema.unideb.hu.models.Genre</class>
         <class>magiccinema.unideb.hu.models.Movie</class>
+        <class>magiccinema.unideb.hu.models.Seat</class>
+        <class>magiccinema.unideb.hu.models.ShowTime</class>
+        <class>magiccinema.unideb.hu.models.Theater</class>
+        <class>magiccinema.unideb.hu.models.Ticket</class>
+        <class>magiccinema.unideb.hu.models.Reservation</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

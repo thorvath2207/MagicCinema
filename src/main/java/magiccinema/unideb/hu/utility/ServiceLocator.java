@@ -19,12 +19,13 @@ public class ServiceLocator {
 
     /**
      * Get serivce from service locator
+     *
      * @param serviceName
      * @return
      */
     public static IService getService(String serviceName) throws ServiceNotFoundException {
         for (IService service : services) {
-            if(service.getName().equalsIgnoreCase(serviceName)){
+            if (service.getName().equalsIgnoreCase(serviceName)) {
                 logger.debug(String.format("Return service from service locator: %s", serviceName));
                 return service;
             }
@@ -36,13 +37,14 @@ public class ServiceLocator {
 
     /**
      * Add a new service to service locator if not exists.
+     *
      * @param newService;
      */
     public static void registerService(IService newService) {
         boolean exists = false;
 
-        for(IService service : services) {
-            if(service.getName().equalsIgnoreCase(newService.getName())) {
+        for (IService service : services) {
+            if (service.getName().equalsIgnoreCase(newService.getName())) {
                 exists = true;
             }
         }

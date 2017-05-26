@@ -25,7 +25,8 @@ public class RootLayout implements IView {
         try {
             return loader.load();
         } catch (IOException e) {
-            logger.error("%s cant find resource", this.getName());
+            logger.error(String.format("%s cant find resource", this.getName()));
+            logger.error(e.getMessage());
             return null;
         }
     }

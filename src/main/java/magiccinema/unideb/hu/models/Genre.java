@@ -7,7 +7,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "genre")
-@NamedQuery(name = "Genre.GET_ALL", query = "SELECT g FROM Genre g")
+@NamedQueries({
+        @NamedQuery(name = "Genre.GET_ALL", query = "SELECT g FROM Genre g")
+})
 public class Genre implements IEntity {
 
     @Id
@@ -25,16 +27,16 @@ public class Genre implements IEntity {
         super();
     }
 
+    public Genre(String name) {
+        this.name = name;
+    }
+
     public Collection<Movie> getMoviesCollection() {
         return moviesCollection;
     }
 
     public void setMoviesCollection(Collection<Movie> moviesCollection) {
         this.moviesCollection = moviesCollection;
-    }
-
-    public Genre(String name) {
-        this.name = name;
     }
 
     public int getGenreId() {

@@ -7,6 +7,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "actor")
+@NamedQueries({
+        @NamedQuery(name = "Actor.GET_ALL", query = "SELECT a FROM Actor a")
+})
 public class Actor implements IEntity {
 
     @Id

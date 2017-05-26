@@ -4,14 +4,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import magiccinema.unideb.hu.services.interfaces.IService;
+import magiccinema.unideb.hu.services.interfaces.INavigation;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.interfaces.IView;
 import org.slf4j.LoggerFactory;
 
 import java.util.ServiceLoader;
 
-public class Navigation implements IService {
+public class Navigation implements INavigation {
     protected static org.slf4j.Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
     private ServiceLoader<IView> views;
     private Stage primaryStage;
@@ -24,14 +24,14 @@ public class Navigation implements IService {
     }
 
     public void showViewInMainWindow(Views viewName) {
+        logger.debug(String.format("Navigation requested to %s", viewName.toString()));
         IView view = this.findView(viewName);
 
         if (view != null) {
             Node viewNode = view.getViewNode();
 
             if (viewNode != null) {
-                this.rootLayout.getChildren().removeAll();
-                this.rootLayout.getChildren().add(viewNode);
+                this.rootLayout.setCenter(viewNode);
             }
         }
     }
@@ -60,6 +60,10 @@ public class Navigation implements IService {
         }
 
         return null;
+    }
+
+    public void requestClose() {
+        this.primaryStage.close();
     }
 
     @Override

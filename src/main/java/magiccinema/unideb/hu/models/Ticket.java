@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ticket")
+@NamedQueries({
+        @NamedQuery(name = "Ticket.GET_ALL", query = "SELECT t FROM Ticket t")
+})
 public class Ticket implements IEntity {
 
     @Id

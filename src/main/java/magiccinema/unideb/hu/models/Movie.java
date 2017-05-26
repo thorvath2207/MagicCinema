@@ -7,7 +7,9 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "movies")
-@NamedQuery(name = "Movie.GET_ALL", query = "SELECT m FROM Movie m")
+@NamedQueries({
+        @NamedQuery(name = "Movie.GET_ALL", query = "SELECT m FROM Movie m")
+})
 public class Movie implements IEntity {
 
     @Id

@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 public class GenreDao implements IGenreDao {
@@ -17,9 +15,8 @@ public class GenreDao implements IGenreDao {
 
     private final EntityManager entityManager;
 
-    public GenreDao() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("cinema-db");
-        this.entityManager = factory.createEntityManager();
+    public GenreDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
         logger.trace("Genre Dao created.");
     }
 

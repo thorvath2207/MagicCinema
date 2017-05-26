@@ -3,6 +3,7 @@ package magiccinema.unideb.hu.models;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -27,8 +28,8 @@ public class ShowTime implements IEntity {
     @ManyToOne(optional = false)
     private Movie movie;
 
-    //@OneToMany(mappedBy = "showtime")
-    //private Collection<Ticket> ticketCollection;
+    @OneToMany(mappedBy = "showTime")
+    private Collection<Ticket> ticketCollection;
 
     public ShowTime() {
         super();
