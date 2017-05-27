@@ -64,4 +64,25 @@ public class Seat implements IEntity {
     public void setTheater(Theater theater) {
         this.theater = theater;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Seat seat = (Seat) o;
+
+        if (id != seat.id) return false;
+        if (seatNumber != seat.seatNumber) return false;
+        return isAvailable == seat.isAvailable;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + seatNumber;
+        result = 31 * result + (isAvailable ? 1 : 0);
+        return result;
+    }
 }

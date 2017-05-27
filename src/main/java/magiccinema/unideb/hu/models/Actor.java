@@ -44,4 +44,22 @@ public class Actor implements IEntity {
         this.actorId = actorId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Actor actor = (Actor) o;
+
+        if (actorId != actor.actorId) return false;
+        return name != null ? name.equals(actor.name) : actor.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = actorId;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 }

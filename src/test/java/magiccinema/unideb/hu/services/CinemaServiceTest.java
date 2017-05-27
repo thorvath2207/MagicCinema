@@ -47,7 +47,7 @@ public class CinemaServiceTest {
 
         ArrayList<ShowTime> act = (ArrayList<ShowTime>) sut.getUpComingShowTimes();
 
-        Assert.assertEquals(arrange, act);
+        Assert.assertEquals(arrange, act.size());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class CinemaServiceTest {
 
         ArrayList<Movie> act = (ArrayList<Movie>) sut.getUpcomingMovies();
 
-        Assert.assertEquals(arrange, act);
+        Assert.assertEquals(arrange, act.size());
     }
 
     private static void setUpMockedServices() {

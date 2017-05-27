@@ -72,4 +72,25 @@ public class Theater implements IEntity {
     public void setSeatCollection(Collection<Seat> seatCollection) {
         this.seatCollection = seatCollection;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Theater theater = (Theater) o;
+
+        if (id != theater.id) return false;
+        if (rows != theater.rows) return false;
+        return rowsCapacity == theater.rowsCapacity;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + rows;
+        result = 31 * result + rowsCapacity;
+        return result;
+    }
 }

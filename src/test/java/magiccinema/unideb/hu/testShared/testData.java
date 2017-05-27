@@ -2,6 +2,7 @@ package magiccinema.unideb.hu.testShared;
 
 import magiccinema.unideb.hu.models.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -134,6 +135,21 @@ public class testData {
 
     public static Collection<ShowTime> getTestShowTimes(){
         ArrayList<ShowTime> showTimes = new ArrayList<>();
+
+        ShowTime add;
+        add = new ShowTime();
+        add.setTheater(getTestTheaters().stream().findFirst().get());
+        add.setTime(LocalDateTime.now().plusHours(12));
+        add.setMovie(getTestMovies().stream().filter(m -> m.getId() == 1).findFirst().get());
+
+        showTimes.add(add);
+
+        add = new ShowTime();
+        add.setTheater(getTestTheaters().stream().findFirst().get());
+        add.setTime(LocalDateTime.now().plusHours(24));
+        add.setMovie(getTestMovies().stream().filter(m -> m.getId() == 1).findFirst().get());
+
+        showTimes.add(add);
 
         return showTimes;
     }

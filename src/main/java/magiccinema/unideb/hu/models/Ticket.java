@@ -63,4 +63,20 @@ public class Ticket implements IEntity {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        return id == ticket.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
