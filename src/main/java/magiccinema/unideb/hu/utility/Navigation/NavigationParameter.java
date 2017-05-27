@@ -1,4 +1,4 @@
-package magiccinema.unideb.hu.utility.Navigation;
+package magiccinema.unideb.hu.utility.navigation;
 
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 

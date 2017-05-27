@@ -31,6 +31,14 @@ public class ShowTime implements IEntity {
     @OneToMany(mappedBy = "showTime")
     private Collection<Ticket> ticketCollection;
 
+    public Collection<Ticket> getTicketCollection() {
+        return ticketCollection;
+    }
+
+    public void setTicketCollection(Collection<Ticket> ticketCollection) {
+        this.ticketCollection = ticketCollection;
+    }
+
     public ShowTime() {
         super();
     }

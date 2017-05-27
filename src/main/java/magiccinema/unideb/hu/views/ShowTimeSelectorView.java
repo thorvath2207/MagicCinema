@@ -28,16 +28,12 @@ public class ShowTimeSelectorView implements IView {
     }
 
     @Override
-    public Node getViewNode() {
+    public Node getViewNode() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainView.class.getResource("showTimeSelectorView.fxml"));
-        try {
-            Node node = loader.load();
-            this.controller = loader.getController();
-            return node;
-        } catch (IOException e) {
-            logger.error("%s cant find resource", getName());
-            return null;
-        }
+
+        Node node = loader.load();
+        this.controller = loader.getController();
+        return node;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package magiccinema.unideb.hu.utility.Navigation;
+package magiccinema.unideb.hu.utility.navigation;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,6 +10,7 @@ import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.interfaces.IView;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ServiceLoader;
 
 public class Navigation implements INavigation {
@@ -21,11 +22,11 @@ public class Navigation implements INavigation {
     public Navigation(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.views = ServiceLoader.load(IView.class);
-        logger.trace("Navigation service loaded.");
+        logger.trace("navigation service loaded.");
     }
 
-    public void showViewInMainWindow(Views viewName, boolean resetData, NavigationParameter parameter) {
-        logger.debug(String.format("Navigation requested to %s", viewName.toString()));
+    public void showViewInMainWindow(Views viewName, boolean resetData, NavigationParameter parameter) throws IOException {
+        logger.debug(String.format("navigation requested to %s", viewName.toString()));
         IView view = this.findView(viewName);
 
         if (view != null) {
@@ -46,18 +47,33 @@ public class Navigation implements INavigation {
     }
 
     public void showViewInMainWindow(Views viewName, NavigationParameter parameter) {
-        this.showViewInMainWindow(viewName, false, parameter);
+        try {
+            this.showViewInMainWindow(viewName, false, parameter);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void showViewInMainWindow(Views viewName, boolean resetData) {
-        this.showViewInMainWindow(viewName, resetData, null);
+    public void showViewInMainWindow(Views viewName, boolean resetData)  {
+        try {
+            this.showViewInMainWindow(viewName, resetData, null);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void showViewInMainWindow(Views viewName) {
-        this.showViewInMainWindow(viewName, false, null);
+    public void showViewInMainWindow(Views viewName)  {
+        try {
+            this.showViewInMainWindow(viewName, false, null);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void initRootLayout() {
+    public void initRootLayout() throws IOException {
         if (this.rootLayout != null) {
             return;
         }
@@ -89,6 +105,6 @@ public class Navigation implements INavigation {
 
     @Override
     public String getName() {
-        return "Navigation";
+        return "navigation";
     }
 }

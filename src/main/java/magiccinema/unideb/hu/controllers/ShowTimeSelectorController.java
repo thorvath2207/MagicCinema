@@ -10,8 +10,8 @@ import magiccinema.unideb.hu.models.Movie;
 import magiccinema.unideb.hu.models.ShowTime;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.Navigation.Navigation;
-import magiccinema.unideb.hu.utility.Navigation.NavigationParameter;
+import magiccinema.unideb.hu.utility.navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
@@ -58,7 +58,7 @@ public class ShowTimeSelectorController implements IController {
     private Label movieTitleLabel;
 
     public ShowTimeSelectorController() throws ServiceNotFoundException {
-        this.navigationService = (Navigation) ServiceLocator.getService("Navigation");
+        this.navigationService = (Navigation) ServiceLocator.getService("navigation");
         this.dialogService = (DialogService) ServiceLocator.getService("DialogService");
         this.cinemaService = (ICinemaService) ServiceLocator.getService("CinemaService");
     }
@@ -75,6 +75,7 @@ public class ShowTimeSelectorController implements IController {
         if (movie == null) {
             this.dialogService.showWarningPopup("Warning", "Value cannot be null!", "Value cannot be null!");
             this.navigationService.showViewInMainWindow(Views.MainView);
+            return;
         }
 
         this.selectedMovie = movie;
@@ -125,17 +126,17 @@ public class ShowTimeSelectorController implements IController {
             this.theatreLabel.setText(showTime.getTheater().getId() + ". theatre");
 
             if (this.availableSeats > 0) {
-                this.nextBtn.setDisable(true);
-            } else {
                 this.nextBtn.setDisable(false);
+            } else {
+                this.nextBtn.setDisable(true);
             }
         } else {
             this.availableSeats = 0;
-            this.timeLabel.setText(this.getFormatedDate(showTime.getTime()));
-            this.availableSeatLabel.setText(availableSeats + "/" + showTime.getTheater().getSeatCollection().size());
-            this.theatreLabel.setText(showTime.getTheater().getId() + ". theatre");
+            this.timeLabel.setText("");
+            this.availableSeatLabel.setText("0/0");
+            this.theatreLabel.setText("");
 
-            this.nextBtn.setDisable(false);
+            this.nextBtn.setDisable(true);
             this.clearLabels();
         }
     }

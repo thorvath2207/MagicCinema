@@ -91,6 +91,30 @@ public class testData {
 
     public static Collection<Ticket> getTestTickets() {
         ArrayList<Ticket> tickets = new ArrayList<>();
+        ShowTime showTime = new ShowTime();
+        showTime.setId(1);
+
+        Ticket add;
+        Reservation reservation = new Reservation();
+        reservation.setId(1);
+
+        Seat seat = new Seat();
+        seat.setId(4);
+        add = new Ticket();
+        add.setId(1);
+        add.setShowTime(showTime);
+        add.setSeat(seat);
+        add.setReservation(reservation);
+        tickets.add(add);
+
+        seat = new Seat();
+        seat.setId(5);
+        add = new Ticket();
+        add.setId(2);
+        add.setShowTime(showTime);
+        add.setSeat(seat);
+        add.setReservation(reservation);
+        tickets.add(add);
 
         return tickets;
     }
@@ -114,13 +138,14 @@ public class testData {
         ArrayList<Seat> seats = new ArrayList<>();
         Seat seatToAdd;
         int id = 1;
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < seatPerRows; j++) {
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= seatPerRows; j++) {
                 seatToAdd = new Seat();
                 seatToAdd.setId(id);
                 seatToAdd.setAvailable(true);
                 seatToAdd.setSeatNumber(j);
                 seatToAdd.setTheater(theater);
+                seats.add(seatToAdd);
                 ++id;
             }
         }
@@ -130,6 +155,12 @@ public class testData {
     public static Collection<Reservation> getTestReservations() {
         ArrayList<Reservation> reservations = new ArrayList<>();
 
+        Reservation add;
+        add = new Reservation();
+        add.setId(1);
+        add.setName("Kiss Pista");
+        add.setReservationDate(LocalDateTime.now());
+        add.setTicketCollection(getTestTickets().stream().filter(t -> t.getReservation().getId() == 1).collect(Collectors.toList()));
         return reservations;
     }
 
@@ -138,13 +169,15 @@ public class testData {
 
         ShowTime add;
         add = new ShowTime();
+        add.setId(1);
         add.setTheater(getTestTheaters().stream().findFirst().get());
         add.setTime(LocalDateTime.now().plusHours(12));
         add.setMovie(getTestMovies().stream().filter(m -> m.getId() == 1).findFirst().get());
-
+        add.setTicketCollection(getTestTickets());
         showTimes.add(add);
 
         add = new ShowTime();
+        add.setId(2);
         add.setTheater(getTestTheaters().stream().findFirst().get());
         add.setTime(LocalDateTime.now().plusHours(24));
         add.setMovie(getTestMovies().stream().filter(m -> m.getId() == 1).findFirst().get());

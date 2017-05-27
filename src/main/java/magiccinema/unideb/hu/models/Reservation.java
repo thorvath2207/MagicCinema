@@ -3,8 +3,8 @@ package magiccinema.unideb.hu.models;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Table(name = "reservation")
@@ -22,7 +22,7 @@ public class Reservation implements IEntity {
     private Collection<Ticket> ticketCollection;
 
     @Column(name = "reservation_date", nullable = false)
-    private Date reservationDate;
+    private LocalDateTime reservationDate;
 
     @Column(name = "reservation_name", nullable = false)
     private String name;
@@ -47,11 +47,11 @@ public class Reservation implements IEntity {
         this.ticketCollection = ticketCollection;
     }
 
-    public Date getReservationDate() {
+    public LocalDateTime getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(Date reservationDate) {
+    public void setReservationDate(LocalDateTime reservationDate) {
         this.reservationDate = reservationDate;
     }
 

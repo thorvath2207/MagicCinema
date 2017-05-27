@@ -8,8 +8,8 @@
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" text="Next" onMouseClicked="#handleNextClick"/>
+            <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Cancel" onMouseClicked="#handleCancelClick" />
          </children>
       </AnchorPane>
    </bottom>

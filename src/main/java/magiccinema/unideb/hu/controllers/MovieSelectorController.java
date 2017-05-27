@@ -14,13 +14,13 @@ import magiccinema.unideb.hu.models.Genre;
 import magiccinema.unideb.hu.models.Movie;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.Navigation.Navigation;
-import magiccinema.unideb.hu.utility.Navigation.NavigationParameter;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
+import magiccinema.unideb.hu.utility.navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +57,7 @@ public class MovieSelectorController implements IController {
     private Movie selectedMovie;
 
     public MovieSelectorController() throws ServiceNotFoundException {
-        this.navigationService = (Navigation) ServiceLocator.getService("Navigation");
+        this.navigationService = (Navigation) ServiceLocator.getService("navigation");
         this.dialogService = (DialogService) ServiceLocator.getService("DialogService");
         this.cinemaService = (ICinemaService) ServiceLocator.getService("CinemaService");
     }
@@ -78,15 +78,13 @@ public class MovieSelectorController implements IController {
     private void initialize() {
         this.movieTitleColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<String>(cellData.getValue().getTitle()));
 
-        this.showMovieDetails(null);
-
         this.moviesTable.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> this.showMovieDetails(newValue));
     }
 
     @FXML
-    public void handleNextClick(MouseEvent args) {
+    public void handleNextClick(MouseEvent args)  {
         this.navigationService.showViewInMainWindow(Views.ShowTimeSelectorView, new NavigationParameter(this.selectedMovie));
     }
 

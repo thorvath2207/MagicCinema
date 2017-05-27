@@ -8,15 +8,15 @@
     <bottom>
         <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" text="Next" />
-                <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Cancel" />
+                <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#handleNextClick" text="Next" />
+                <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#handleCancelClick" text="Cancel" />
             </children>
         </AnchorPane>
     </bottom>
    <left>
       <TableView fx:id="showTimesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="showTimeColumn" prefWidth="75.0" text="Show Times" />
+          <TableColumn fx:id="showTimeColumn" prefWidth="197.0" text="Show Times" />
         </columns>
       </TableView>
    </left>
@@ -38,7 +38,7 @@
             <Label text="Time:" GridPane.rowIndex="1" />
             <Label text="Theatre:" GridPane.rowIndex="2" />
             <Label text="Available seats:" GridPane.rowIndex="3" />
-            <Label text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="movieTitleLabel" text="Label" GridPane.columnIndex="1" />
             <Label fx:id="timeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="theatreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="availableSeatLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />

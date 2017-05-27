@@ -28,7 +28,9 @@ public class MainView implements IView {
     }
 
     @Override
-    public Views getViewType() { return Views.MainView; }
+    public Views getViewType() {
+        return Views.MainView;
+    }
 
     @Override
     public IController getController() {
@@ -36,16 +38,13 @@ public class MainView implements IView {
     }
 
     @Override
-    public Node getViewNode() {
+    public Node getViewNode() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainView.class.getResource("mainView.fxml"));
-        try {
-            Node node = loader.load();
-            this.controller = loader.getController();
-            return node;
-        } catch (IOException e) {
-            logger.error("%s cant find resource", getName());
-            return null;
-        }
+
+        Node node = loader.load();
+        this.controller = loader.getController();
+        return node;
+
     }
 
     private void initialize() {

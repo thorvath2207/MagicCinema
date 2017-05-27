@@ -28,17 +28,13 @@ public class RootLayout implements IView {
     }
 
     @Override
-    public Node getViewNode() {
+    public Node getViewNode() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainView.class.getResource("rootLayout.fxml"));
-        try {
-            Node node = loader.load();
-            this.controller = loader.getController();
-            return node;
-        } catch (IOException e) {
-            logger.error(String.format("%s cant find resource", this.getName()));
-            logger.error(e.getMessage());
-            return null;
-        }
+
+        Node node = loader.load();
+        this.controller = loader.getController();
+        return node;
+
     }
 
     @Override

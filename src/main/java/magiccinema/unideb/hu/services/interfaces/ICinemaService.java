@@ -1,6 +1,7 @@
 package magiccinema.unideb.hu.services.interfaces;
 
 import magiccinema.unideb.hu.models.Movie;
+import magiccinema.unideb.hu.models.Seat;
 import magiccinema.unideb.hu.models.ShowTime;
 
 import java.util.Collection;
@@ -16,4 +17,12 @@ public interface ICinemaService extends IService {
     List<ShowTime> getUpComingShowTimesByMovieId(int movieId);
 
     int getAvailableSeatsByShowTimeId(int showTimeId);
+
+    List<Seat> getSeatsToShowTime(int showTimeId);
+
+    ShowTime getShowTimeById(int showTimeId);
+
+    boolean getSeatIsAvailableAtShowTime(int seatId, int showTimeId);
+
+    List<Seat> updateSeatListForSelector(List<Seat> selectedSeats, int showTimeid);
 }

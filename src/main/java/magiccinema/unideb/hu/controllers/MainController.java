@@ -3,7 +3,7 @@ package magiccinema.unideb.hu.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.Navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
@@ -20,7 +20,7 @@ public class MainController implements IController {
     private final DialogService dialogService;
 
     public MainController() throws ServiceNotFoundException {
-        this.navigationService = (Navigation)ServiceLocator.getService("Navigation");
+        this.navigationService = (Navigation)ServiceLocator.getService("navigation");
         this.dialogService = (DialogService)ServiceLocator.getService("DialogService");
     }
 

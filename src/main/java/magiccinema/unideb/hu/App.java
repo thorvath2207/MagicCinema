@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import magiccinema.unideb.hu.services.*;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.Navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
 import org.slf4j.Logger;

@@ -135,12 +135,13 @@ public class AdminController implements IController {
     public void generateTestSeats(int rows, int seatPerRows, Theater theater) {
         Seat seatToAdd;
 
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < seatPerRows; j++) {
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= seatPerRows; j++) {
                 seatToAdd = new Seat();
                 seatToAdd.setAvailable(true);
                 seatToAdd.setSeatNumber(j);
                 seatToAdd.setTheater(theater);
+                seatToAdd.setRowNumber(i);
                 this.seatDao.add(seatToAdd);
             }
         }

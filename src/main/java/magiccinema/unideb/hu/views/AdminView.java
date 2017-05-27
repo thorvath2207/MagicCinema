@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+
 @AutoService(IView.class)
 public class AdminView implements IView {
     protected static Logger logger = LoggerFactory.getLogger(AdminView.class);
@@ -22,16 +23,11 @@ public class AdminView implements IView {
     }
 
     @Override
-    public Node getViewNode() {
+    public Node getViewNode() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainView.class.getResource("adminView.fxml"));
-        try {
-            Node node = loader.load();
-            this.controller = loader.getController();
-            return node;
-        } catch (IOException e) {
-            logger.error("%s cant find resource", getName());
-            return null;
-        }
+        Node node = loader.load();
+        this.controller = loader.getController();
+        return node;
     }
 
     @Override

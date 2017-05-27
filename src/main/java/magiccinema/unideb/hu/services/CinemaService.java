@@ -1,7 +1,9 @@
 package magiccinema.unideb.hu.services;
 
 import magiccinema.unideb.hu.models.Movie;
+import magiccinema.unideb.hu.models.Seat;
 import magiccinema.unideb.hu.models.ShowTime;
+import magiccinema.unideb.hu.models.Ticket;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.services.interfaces.dao.*;
 import magiccinema.unideb.hu.utility.ServiceLocator;
@@ -47,7 +49,6 @@ public class CinemaService implements ICinemaService {
         return upComingShowTimes;
     }
 
-    @Override
     public int getAvailableSeatsByShowTimeId(int showTimeId) {
         ShowTime showTime = this.showTimeDao.getById(showTimeId);
         int size = showTime.getTheater().getSeatCollection().size();
@@ -62,6 +63,45 @@ public class CinemaService implements ICinemaService {
         }
 
         return result;
+    }
+
+    public List<Seat> getSeatsToShowTime(int showTimeId) {
+        ShowTime showTime = this.showTimeDao.getById(showTimeId);
+        List<Seat> seats = (List<Seat>) showTime.getTheater().getSeatCollection();
+
+        seats.stream().forEach(seat -> {
+            seat.setAvailable(this.getSeatIsAvailableAtShowTime(seat.getId(), showTimeId));
+        });
+
+        return seats;
+    }
+
+    public ShowTime getShowTimeById(int showTimeId) {
+        return this.showTimeDao.getById(showTimeId);
+    }
+
+    public boolean getSeatIsAvailableAtShowTime(int seatId, int showTimeId) {
+        ShowTime showTime = this.getShowTimeById(showTimeId);
+
+        if (showTime == null) {
+            return false;
+        }
+
+        Collection<Seat> reservedSeats = showTime.getTicketCollection()
+                .stream()
+                .map(Ticket::getSeat)
+                .collect(Collectors.toList());
+
+        if (reservedSeats.stream().filter(s -> s.getId() == seatId).count() != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public List<Seat> updateSeatListForSelector(List<Seat> selectedSeats, int showTimeid) {
+        return null;
     }
 
     public List<ShowTime> getUpComingShowTimes() {
@@ -84,12 +124,10 @@ public class CinemaService implements ICinemaService {
         return movies;
     }
 
-    @Override
     public int upComingShowTimesCounter(int movieId) {
         return this.getUpComingShowTimesByMovieId(movieId).size();
     }
 
-    @Override
     public String getName() {
         return "CinemaService";
     }

@@ -19,6 +19,9 @@ public class Seat implements IEntity {
     @Column(name = "seat_number", nullable = false)
     private int seatNumber;
 
+    @Column(name = "row_number", nullable = false)
+    private int rowNumber;
+
     private boolean isAvailable;
 
     @JoinColumn(name = "theater", referencedColumnName = "theater_id")
@@ -37,8 +40,12 @@ public class Seat implements IEntity {
         this.id = id;
     }
 
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
+    }
+
     public int getRowNumber() {
-        return this.seatNumber / this.theater.getRowsCapacity(); // TODO atgondolni, sok koffeint miatt nem megy
+        return this.rowNumber;
     }
 
     public int getSeatNumber() {
