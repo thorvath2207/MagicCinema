@@ -50,5 +50,4 @@ public class ReservationCreateView implements IView {
     private void initialize() {
 
     }
-
 }

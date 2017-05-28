@@ -42,7 +42,7 @@
             <Label fx:id="movieLabel" text="Label" GridPane.columnIndex="1" />
             <TableView fx:id="seatsListTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <columns>
-                <TableColumn prefWidth="469.0" text="C1" />
+                <TableColumn fx:id="seatStringTableColumn" prefWidth="469.0" text="Seats" />
               </columns>
             </TableView>
          </children>

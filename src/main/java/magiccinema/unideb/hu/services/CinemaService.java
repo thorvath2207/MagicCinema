@@ -145,6 +145,7 @@ public class CinemaService implements ICinemaService {
     }
 
     public void reservationCreate(Reservation reservation) {
+        //reservation.getTicketCollection().forEach(ticket ->  this.ticketDao.add(ticket));
         this.reservationDao.add(reservation);
     }
 

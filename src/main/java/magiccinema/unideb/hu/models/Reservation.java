@@ -14,11 +14,11 @@ import java.util.Collection;
 public class Reservation implements IEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "reservation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "reservation")
     private Collection<Ticket> ticketCollection;
 
     @Column(name = "reservation_date", nullable = false)
@@ -64,11 +64,18 @@ public class Reservation implements IEntity {
     }
 
     public ShowTime getShowTime() {
+        if (this.ticketCollection.size() == 0) {
+            return null;
+        }
         return this.ticketCollection.stream().findFirst().get().getShowTime();
     }
 
     public Movie getMovie() {
-        return this.getShowTime().getMovie();
+        if (this.getShowTime() != null){
+            return this.getShowTime().getMovie();
+        }
+
+        return null;
     }
 
     @Override

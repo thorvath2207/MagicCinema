@@ -16,7 +16,7 @@ public class Ticket implements IEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "showtime_id")
     private ShowTime showTime;
 
@@ -24,8 +24,8 @@ public class Ticket implements IEntity {
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn(name = "reservation", referencedColumnName = "reservation_id")
+    @ManyToOne(optional = false)
     private Reservation reservation;
 
     public Ticket() {

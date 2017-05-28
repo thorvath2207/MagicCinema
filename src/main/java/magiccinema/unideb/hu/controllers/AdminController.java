@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.models.*;
+import magiccinema.unideb.hu.services.interfaces.IDialogService;
 import magiccinema.unideb.hu.services.interfaces.dao.*;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
@@ -32,6 +33,8 @@ public class AdminController implements IController {
     private final ITicketDao ticketDao;
     private final IReservationDao reservationDao;
 
+    private final IDialogService dialogService;
+
 
     public AdminController() throws ServiceNotFoundException {
         this.actorDao = (IActorDao) ServiceLocator.getService("ActorDao");
@@ -42,6 +45,7 @@ public class AdminController implements IController {
         this.theaterDao = (ITheaterDao) ServiceLocator.getService("TheaterDao");
         this.ticketDao = (ITicketDao) ServiceLocator.getService("TicketDao");
         this.reservationDao = (IReservationDao)ServiceLocator.getService("ReservationDao");
+        this.dialogService = (IDialogService)ServiceLocator.getService("DialogService");
     }
 
     @FXML
@@ -62,6 +66,8 @@ public class AdminController implements IController {
     @FXML
     public void handleFillBtnClick(MouseEvent eventArgs) {
         this.generateSampleData();
+
+        this.dialogService.showInformationPopup("Test data", "Generate some shitz.", "Done!");
     }
 
     @Override
@@ -87,7 +93,6 @@ public class AdminController implements IController {
         this.movieCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMovie().getTitle()));
         this.reservationNameCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getName()));
         this.reservationDateCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getReservationDate().toString()));
-
 
         this.resetData();
     }

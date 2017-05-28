@@ -82,12 +82,13 @@ public class ReservationCreateController implements IController {
         return true;
     }
 
-    private void createTickets() {
+    private void createTickets(Reservation reservation) {
         this.tickets = new ArrayList<>();
         this.seats.forEach(seat -> {
             Ticket ticket = new Ticket();
             ticket.setSeat(seat);
             ticket.setShowTime(this.showTime);
+            ticket.setReservation(reservation);
             this.tickets.add(ticket);
         });
     }
@@ -96,11 +97,14 @@ public class ReservationCreateController implements IController {
     public void handleNextClick(MouseEvent event) {
         if (this.validForm()) {
             Reservation reservationToCreate = new Reservation();
-            this.createTickets();
+            this.createTickets(reservationToCreate);
             reservationToCreate.setTicketCollection(this.tickets);
             reservationToCreate.setName(this.nameTextField.getText());
             reservationToCreate.setReservationDate(LocalDateTime.now());
             this.cinemaService.reservationCreate(reservationToCreate);
+
+            this.dialogService.showInformationPopup("Reservation success", "you are created reservation", "");
+            this.navigationService.showViewInMainWindow(Views.MainView);
         }
     }
 
