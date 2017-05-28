@@ -1,6 +1,11 @@
 package magiccinema.unideb.hu.controllers;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.models.*;
 import magiccinema.unideb.hu.services.interfaces.dao.*;
@@ -13,9 +18,11 @@ import magiccinema.unideb.hu.utility.interfaces.IEntity;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminController implements IController {
+
     private final IActorDao actorDao;
     private final IGenreDao genreDao;
     private final IMovieDao movieDao;
@@ -23,6 +30,8 @@ public class AdminController implements IController {
     private final IShowTimeDao showTimeDao;
     private final ITheaterDao theaterDao;
     private final ITicketDao ticketDao;
+    private final IReservationDao reservationDao;
+
 
     public AdminController() throws ServiceNotFoundException {
         this.actorDao = (IActorDao) ServiceLocator.getService("ActorDao");
@@ -32,22 +41,55 @@ public class AdminController implements IController {
         this.showTimeDao = (IShowTimeDao) ServiceLocator.getService("ShowTimeDao");
         this.theaterDao = (ITheaterDao) ServiceLocator.getService("TheaterDao");
         this.ticketDao = (ITicketDao) ServiceLocator.getService("TicketDao");
+        this.reservationDao = (IReservationDao)ServiceLocator.getService("ReservationDao");
     }
+
+    @FXML
+    private TableView<Reservation> reservationTable;
+
+    @FXML
+    private TableColumn<Reservation, String> showTimeCol;
+
+    @FXML
+    private TableColumn<Reservation, String> movieCol;
+
+    @FXML
+    private TableColumn<Reservation, String> reservationNameCol;
+
+    @FXML
+    private TableColumn<Reservation, String> reservationDateCol;
 
     @FXML
     public void handleFillBtnClick(MouseEvent eventArgs) {
         this.generateSampleData();
     }
 
-
     @Override
     public void resetData() {
-
+        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+        reservations.addAll(this.reservationDao.getAll());
+        this.reservationTable.setItems(reservations);
     }
 
     @Override
     public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
 
+    }
+
+    @Override
+    public void setData(List<IEntity> entities) {
+
+    }
+
+    @FXML
+    private void initialize() {
+        this.showTimeCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getShowTime().getTime().toString()));
+        this.movieCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMovie().getTitle()));
+        this.reservationNameCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getName()));
+        this.reservationDateCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getReservationDate().toString()));
+
+
+        this.resetData();
     }
 
     private void generateSampleData() {

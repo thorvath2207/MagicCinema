@@ -37,7 +37,10 @@ public class Navigation implements INavigation {
                     view.getController().resetData();
                 }
 
-                if (view.getController() != null && parameter != null){
+                if (view.getController() != null && parameter != null) {
+                    if (parameter.getEntities() != null) {
+                        view.getController().setData(parameter.getEntities());
+                    }
                     view.getController().setData(parameter.getEntity(), parameter.getAdditionalParameters());
                 }
 
@@ -55,7 +58,7 @@ public class Navigation implements INavigation {
         }
     }
 
-    public void showViewInMainWindow(Views viewName, boolean resetData)  {
+    public void showViewInMainWindow(Views viewName, boolean resetData) {
         try {
             this.showViewInMainWindow(viewName, resetData, null);
         } catch (IOException e) {
@@ -64,7 +67,7 @@ public class Navigation implements INavigation {
         }
     }
 
-    public void showViewInMainWindow(Views viewName)  {
+    public void showViewInMainWindow(Views viewName) {
         try {
             this.showViewInMainWindow(viewName, false, null);
         } catch (IOException e) {

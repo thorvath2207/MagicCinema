@@ -1,9 +1,6 @@
 package magiccinema.unideb.hu.services;
 
-import magiccinema.unideb.hu.models.Movie;
-import magiccinema.unideb.hu.models.Seat;
-import magiccinema.unideb.hu.models.ShowTime;
-import magiccinema.unideb.hu.models.Ticket;
+import magiccinema.unideb.hu.models.*;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.services.interfaces.dao.*;
 import magiccinema.unideb.hu.utility.ServiceLocator;
@@ -27,6 +24,7 @@ public class CinemaService implements ICinemaService {
     private final IShowTimeDao showTimeDao;
     private final ITheaterDao theaterDao;
     private final ITicketDao ticketDao;
+    private final IReservationDao reservationDao;
 
     public CinemaService() throws ServiceNotFoundException {
         this.actorDao = (IActorDao) ServiceLocator.getService("ActorDao");
@@ -36,7 +34,7 @@ public class CinemaService implements ICinemaService {
         this.showTimeDao = (IShowTimeDao) ServiceLocator.getService("ShowTimeDao");
         this.theaterDao = (ITheaterDao) ServiceLocator.getService("TheaterDao");
         this.ticketDao = (ITicketDao) ServiceLocator.getService("TicketDao");
-
+        this.reservationDao = (IReservationDao) ServiceLocator.getService("ReservationDao");
         logger.trace("Cinema service is initialized.");
     }
 
@@ -144,6 +142,10 @@ public class CinemaService implements ICinemaService {
 
 
         return result[0];
+    }
+
+    public void reservationCreate(Reservation reservation) {
+        this.reservationDao.add(reservation);
     }
 
     public List<ShowTime> getUpComingShowTimes() {

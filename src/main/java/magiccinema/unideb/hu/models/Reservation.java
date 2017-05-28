@@ -63,6 +63,14 @@ public class Reservation implements IEntity {
         this.name = name;
     }
 
+    public ShowTime getShowTime() {
+        return this.ticketCollection.stream().findFirst().get().getShowTime();
+    }
+
+    public Movie getMovie() {
+        return this.getShowTime().getMovie();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

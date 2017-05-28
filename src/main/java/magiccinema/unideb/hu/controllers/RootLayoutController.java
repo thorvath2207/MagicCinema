@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class RootLayoutController implements IController {
 
@@ -49,6 +50,11 @@ public class RootLayoutController implements IController {
 
     @Override
     public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
+
+    }
+
+    @Override
+    public void setData(List<IEntity> entities) {
 
     }
 }

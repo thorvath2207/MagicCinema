@@ -12,24 +12,25 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 @AutoService(IView.class)
-public class RootLayout implements IView {
-    protected static Logger logger = LoggerFactory.getLogger(RootLayout.class);
+public class ReservationCreateView implements IView {
+
+    protected static Logger logger = LoggerFactory.getLogger(ReservationCreateView.class);
 
     private IController controller;
 
-    public RootLayout() {
-        logger.trace("RootLayout constructed");
+    public ReservationCreateView() {
+        logger.trace("ReservationCreateView constructed");
         this.initialize();
     }
 
     @Override
     public String getName() {
-        return "RootLayout";
+        return "ReservationCreateView";
     }
 
     @Override
     public Node getViewNode() throws IOException {
-        FXMLLoader loader = new FXMLLoader(MainView.class.getResource("rootLayout.fxml"));
+        FXMLLoader loader = new FXMLLoader(MainView.class.getResource("reservationCreateView.fxml"));
 
         Node node = loader.load();
         this.controller = loader.getController();
@@ -38,7 +39,7 @@ public class RootLayout implements IView {
 
     @Override
     public Views getViewType() {
-        return Views.RootLayout;
+        return Views.ReservationCreateView;
     }
 
     @Override
@@ -49,4 +50,5 @@ public class RootLayout implements IView {
     private void initialize() {
 
     }
+
 }

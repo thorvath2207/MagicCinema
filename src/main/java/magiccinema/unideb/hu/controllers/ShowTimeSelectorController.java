@@ -26,9 +26,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
 public class ShowTimeSelectorController implements IController {
-    protected static Logger logger = LoggerFactory.getLogger(RootLayoutController.class);
+
+    protected static Logger logger = LoggerFactory.getLogger(ShowTimeSelectorController.class);
 
     private final Navigation navigationService;
     private final DialogService dialogService;
@@ -90,13 +92,17 @@ public class ShowTimeSelectorController implements IController {
 
         ObservableList<ShowTime> showTimes = FXCollections.observableArrayList();
         showTimes.addAll(this.cinemaService.getUpComingShowTimesByMovieId(this.selectedMovie.getId()));
-        showTimesTable.setItems(showTimes);
+        this.showTimesTable.setItems(showTimes);
+    }
+
+    @Override
+    public void setData(List<IEntity> entities) {
+
     }
 
     @FXML
     private void initialize() {
-
-        this.showTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<String>(this.getFormatedDate(cellData.getValue().getTime())));
+        this.showTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(this.getFormatedDate(cellData.getValue().getTime())));
 
         this.showShowTimeDetails(null);
 

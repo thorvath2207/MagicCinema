@@ -27,9 +27,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class MovieSelectorController implements IController {
-    protected static Logger logger = LoggerFactory.getLogger(RootLayoutController.class);
+
+    protected static Logger logger = LoggerFactory.getLogger(MovieSelectorController.class);
 
     private final Navigation navigationService;
     private final DialogService dialogService;
@@ -73,6 +75,11 @@ public class MovieSelectorController implements IController {
 
     @Override
     public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
+
+    }
+
+    @Override
+    public void setData(List<IEntity> entities) {
 
     }
 

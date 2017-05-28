@@ -25,14 +25,17 @@ import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 import magiccinema.unideb.hu.utility.navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SeatSelectorController implements IController {
+
     protected static Logger logger = LoggerFactory.getLogger(SeatSelectorController.class);
 
     private final Navigation navigationService;
@@ -43,6 +46,9 @@ public class SeatSelectorController implements IController {
 
     @FXML
     private GridPane seatButtonPane;
+
+    @FXML
+    private Label errorLabel;
 
     private List<SeatUi> selectedSeats;
 
@@ -58,7 +64,13 @@ public class SeatSelectorController implements IController {
 
     @FXML
     public void handleNextClick(MouseEvent args) {
-
+        if (!this.cinemaService.checkIsValidSelect(this.selectedSeats.stream().map(SeatUi::getSeat).collect(Collectors.toList()), this.selectedShowTime.getId())) {
+            this.errorLabel.setText("Error at selection!");
+            return;
+        }
+        NavigationParameter parameter = new NavigationParameter(this.selectedSeats.stream().map(SeatUi::getSeat).collect(Collectors.toList()));
+        parameter.getAdditionalParameters().put(AdditionalParameters.ShowTimeId, this.selectedShowTime.getId());
+        this.navigationService.showViewInMainWindow(Views.ReservationCreateView, parameter);
     }
 
     @FXML
@@ -71,14 +83,17 @@ public class SeatSelectorController implements IController {
 
     @Override
     public void resetData() {
+        this.errorLabel.setText("");
         this.selectedSeats = new ArrayList<>();
         this.seatButtonPane.getChildren().removeAll();
     }
 
     @Override
     public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
-        ShowTime showTime = (ShowTime) entity;
         this.resetData();
+        ShowTime showTime = (ShowTime) entity;
+        this.ticketQty = addinParams.get(AdditionalParameters.TicketQty);
+
         if (showTime != null) {
             this.selectedShowTime = showTime;
 
@@ -116,6 +131,11 @@ public class SeatSelectorController implements IController {
         }
     }
 
+    @Override
+    public void setData(List<IEntity> entities) {
+
+    }
+
     private void updateToggleButtons(ActionEvent e) {
         SeatUi senderSeatUi = (SeatUi) e.getSource();
 
@@ -128,7 +148,22 @@ public class SeatSelectorController implements IController {
         }
 
         if (this.selectedSeats.size() == this.ticketQty) {
-
+            this.seatButtonPane.getChildren().forEach(node -> {
+                if (node instanceof SeatUi) {
+                    if (!this.selectedSeats.contains(((SeatUi)node))) {
+                        ((SeatUi)node).setDisable(true);
+                    }
+                }
+            });
+        } else {
+            this.seatButtonPane.getChildren().forEach(node -> {
+                if (node instanceof SeatUi) {
+                    boolean isAvailableAtShowTime = this.cinemaService.getSeatIsAvailableAtShowTime(((SeatUi)node).getSeat().getId(), this.selectedShowTime.getId());
+                    if (!this.selectedSeats.contains(((SeatUi)node)) && isAvailableAtShowTime) {
+                        ((SeatUi)node).setDisable(false);
+                    }
+                }
+            });
         }
     }
 }

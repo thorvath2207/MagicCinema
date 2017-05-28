@@ -1,6 +1,7 @@
 package magiccinema.unideb.hu.services.interfaces;
 
 import magiccinema.unideb.hu.models.Movie;
+import magiccinema.unideb.hu.models.Reservation;
 import magiccinema.unideb.hu.models.Seat;
 import magiccinema.unideb.hu.models.ShowTime;
 
@@ -25,4 +26,6 @@ public interface ICinemaService extends IService {
     boolean getSeatIsAvailableAtShowTime(int seatId, int showTimeId);
 
     boolean checkIsValidSelect(List<Seat> selectedSeats, int showTimeId);
+
+    void reservationCreate(Reservation reservation);
 }
