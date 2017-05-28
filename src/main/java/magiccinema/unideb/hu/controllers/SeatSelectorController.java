@@ -98,14 +98,19 @@ public class SeatSelectorController implements IController {
             this.selectedShowTime = showTime;
 
             this.seats = this.cinemaService.getSeatsToShowTime(this.selectedShowTime.getId());
-            String url = getClass().getResource("reservedSeat.png").toExternalForm();
+            String url = this.getClass().getResource("reservedSeat.png").toExternalForm();
             Image reservedSeat = new Image(url, 20, 20, false, false);
-            url = getClass().getResource("freeSeat.png").toExternalForm();
+            url = this.getClass().getResource("freeSeat.png").toExternalForm();
             Image freeSeat = new Image(url, 20, 20, false, false);
 
             this.seats
                     .stream()
                     .forEach(seat -> {
+                        if (seat.getSeatNumber() == 1) {
+                            Label lbl = new Label();
+                            lbl.setText(String.valueOf(seat.getRowNumber()) + ". row");
+                            this.seatButtonPane.add(lbl, 0, seat.getRowNumber() - 1);
+                        }
                         boolean isAvailableAtShowTime = this.cinemaService.getSeatIsAvailableAtShowTime(seat.getId(), this.selectedShowTime.getId());
                         if (!isAvailableAtShowTime) {
                             SeatUi toggleButton = new SeatUi(String.valueOf(seat.getSeatNumber()), new ImageView(reservedSeat), seat);
@@ -113,11 +118,6 @@ public class SeatSelectorController implements IController {
                             this.seatButtonPane.add(toggleButton, seat.getSeatNumber() - 1, seat.getRowNumber() - 1);
                         } else {
                             SeatUi toggleButton = new SeatUi(String.valueOf(seat.getSeatNumber()), new ImageView(freeSeat), seat);
-                            if (seat.getSeatNumber() == 1) {
-                                Label lbl = new Label();
-                                lbl.setText(String.valueOf(seat.getRowNumber()) + ". row");
-                                this.seatButtonPane.add(lbl, 0, seat.getRowNumber() - 1);
-                            }
                             toggleButton.setOnAction(e -> {
                                 this.updateToggleButtons(e);
                             });

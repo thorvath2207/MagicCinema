@@ -87,6 +87,7 @@ public class Navigation implements INavigation {
             this.rootLayout = (BorderPane) rootView.getViewNode();
             if (this.rootLayout != null) {
                 Scene scene = new Scene(this.rootLayout);
+                scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
                 this.primaryStage.setScene(scene);
             }
         }
