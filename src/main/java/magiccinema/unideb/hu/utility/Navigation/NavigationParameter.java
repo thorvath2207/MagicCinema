@@ -1,16 +1,26 @@
 package magiccinema.unideb.hu.utility.navigation;
 
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
-public class NavigationParameter{
+import java.util.HashMap;
+
+public class NavigationParameter {
     private IEntity entity;
 
-    public NavigationParameter(IEntity entity){
+    private HashMap<AdditionalParameters, Integer> additionalParameters;
+
+    public NavigationParameter(IEntity entity) {
+        this.additionalParameters = new HashMap<>();
         this.entity = entity;
     }
 
-    public IEntity getEntity(){
+    public IEntity getEntity() {
         return this.entity;
+    }
+
+    public HashMap<AdditionalParameters, Integer> getAdditionalParameters() {
+        return this.additionalParameters;
     }
 }
 

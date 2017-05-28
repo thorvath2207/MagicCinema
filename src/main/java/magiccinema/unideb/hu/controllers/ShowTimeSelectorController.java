@@ -10,18 +10,22 @@ import magiccinema.unideb.hu.models.Movie;
 import magiccinema.unideb.hu.models.ShowTime;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.utility.DialogService;
-import magiccinema.unideb.hu.utility.navigation.Navigation;
-import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import magiccinema.unideb.hu.utility.ServiceLocator;
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.constans.Views;
+import magiccinema.unideb.hu.utility.controls.NumberSpinner;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
+import magiccinema.unideb.hu.utility.navigation.Navigation;
+import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class ShowTimeSelectorController implements IController {
     protected static Logger logger = LoggerFactory.getLogger(RootLayoutController.class);
@@ -57,6 +61,9 @@ public class ShowTimeSelectorController implements IController {
     @FXML
     private Label movieTitleLabel;
 
+    @FXML
+    private NumberSpinner ticketsNumberSpinner;
+
     public ShowTimeSelectorController() throws ServiceNotFoundException {
         this.navigationService = (Navigation) ServiceLocator.getService("navigation");
         this.dialogService = (DialogService) ServiceLocator.getService("DialogService");
@@ -69,7 +76,7 @@ public class ShowTimeSelectorController implements IController {
     }
 
     @Override
-    public void setData(IEntity entity) {
+    public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
         Movie movie = (Movie) entity;
 
         if (movie == null) {
@@ -96,11 +103,21 @@ public class ShowTimeSelectorController implements IController {
         this.showTimesTable.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> this.showShowTimeDetails(newValue));
+
+        this.ticketsNumberSpinner.numberProperty().addListener((observable, oldValue, newValue) -> {
+            if (this.availableSeats > 0 && newValue.intValue() <= this.availableSeats) {
+                this.nextBtn.setDisable(false);
+            } else {
+                this.nextBtn.setDisable(true);
+            }
+        });
     }
 
     @FXML
     public void handleNextClick(MouseEvent args) {
-        this.navigationService.showViewInMainWindow(Views.SeatSelectorView, new NavigationParameter(this.selectedShowTime));
+        NavigationParameter parameter = new NavigationParameter(this.selectedShowTime);
+        parameter.getAdditionalParameters().put(AdditionalParameters.TicketQty, this.ticketsNumberSpinner.getNumber().intValue());
+        this.navigationService.showViewInMainWindow(Views.SeatSelectorView, parameter);
     }
 
     @FXML
@@ -118,18 +135,15 @@ public class ShowTimeSelectorController implements IController {
 
     private void showShowTimeDetails(ShowTime showTime) {
         this.selectedShowTime = showTime;
+
+        this.ticketsNumberSpinner.setNumber(BigDecimal.valueOf(0));
+
         if (showTime != null) {
             this.availableSeats = this.cinemaService.getAvailableSeatsByShowTimeId(showTime.getId());
 
             this.timeLabel.setText(this.getFormatedDate(showTime.getTime()));
-            this.availableSeatLabel.setText(availableSeats + "/" + showTime.getTheater().getSeatCollection().size());
+            this.availableSeatLabel.setText(this.availableSeats + "/" + showTime.getTheater().getSeatCollection().size());
             this.theatreLabel.setText(showTime.getTheater().getId() + ". theatre");
-
-            if (this.availableSeats > 0) {
-                this.nextBtn.setDisable(false);
-            } else {
-                this.nextBtn.setDisable(true);
-            }
         } else {
             this.availableSeats = 0;
             this.timeLabel.setText("");

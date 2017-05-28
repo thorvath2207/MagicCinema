@@ -24,5 +24,5 @@ public interface ICinemaService extends IService {
 
     boolean getSeatIsAvailableAtShowTime(int seatId, int showTimeId);
 
-    List<Seat> updateSeatListForSelector(List<Seat> selectedSeats, int showTimeid);
+    boolean checkIsValidSelect(List<Seat> selectedSeats, int showTimeId);
 }

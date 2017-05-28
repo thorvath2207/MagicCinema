@@ -144,11 +144,35 @@ public class testData {
                 seatToAdd.setId(id);
                 seatToAdd.setAvailable(true);
                 seatToAdd.setSeatNumber(j);
+                seatToAdd.setRowNumber(i);
                 seatToAdd.setTheater(theater);
                 seats.add(seatToAdd);
                 ++id;
             }
         }
+        return seats;
+    }
+
+    public static Collection<Seat> getTestSeats() {
+        ArrayList<Seat> seats = new ArrayList<>();
+
+        Theater theater = new Theater();
+        theater.setRowsCapacity(8);
+        theater.setId(1);
+        for (int i = 1; i <= 8; i++) {
+            Seat seat = new Seat();
+            seat.setId(i);
+            seat.setTheater(theater);
+            seat.setSeatNumber(i);
+            seat.setRowNumber(1);
+            if (i == 1 || i == 4) {
+                seat.setAvailable(false);
+            } else {
+                seat.setAvailable(true);
+            }
+            seats.add(seat);
+        }
+
         return seats;
     }
 
@@ -164,7 +188,7 @@ public class testData {
         return reservations;
     }
 
-    public static Collection<ShowTime> getTestShowTimes(){
+    public static Collection<ShowTime> getTestShowTimes() {
         ArrayList<ShowTime> showTimes = new ArrayList<>();
 
         ShowTime add;

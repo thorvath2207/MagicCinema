@@ -15,6 +15,7 @@ import magiccinema.unideb.hu.models.Movie;
 import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.utility.DialogService;
 import magiccinema.unideb.hu.utility.ServiceLocator;
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
@@ -25,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class MovieSelectorController implements IController {
     protected static Logger logger = LoggerFactory.getLogger(RootLayoutController.class);
@@ -70,7 +72,7 @@ public class MovieSelectorController implements IController {
     }
 
     @Override
-    public void setData(IEntity entity) {
+    public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
 
     }
 

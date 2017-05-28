@@ -5,12 +5,14 @@ import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.models.*;
 import magiccinema.unideb.hu.services.interfaces.dao.*;
 import magiccinema.unideb.hu.utility.ServiceLocator;
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class AdminController implements IController {
@@ -44,7 +46,7 @@ public class AdminController implements IController {
     }
 
     @Override
-    public void setData(IEntity entity) {
+    public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
 
     }
 

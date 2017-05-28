@@ -53,4 +53,15 @@ public class SeatDao implements ISeatDao {
     public String getName() {
         return "SeatDao";
     }
+
+    @Override
+    public Seat getByRowColTheatreId(int theaterId, int rowId, int colId) {
+        return this.getAll()
+                .stream()
+                .filter(seat ->
+                        seat.getTheater().getId() == theaterId &&
+                        seat.getRowNumber() == rowId &&
+                        seat.getSeatNumber() == colId
+                ).findFirst().get();
+    }
 }

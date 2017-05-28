@@ -3,6 +3,7 @@ package magiccinema.unideb.hu.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import magiccinema.unideb.hu.utility.DialogService;
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.navigation.Navigation;
 import magiccinema.unideb.hu.utility.ServiceLocator;
 import magiccinema.unideb.hu.utility.constans.Views;
@@ -11,6 +12,8 @@ import magiccinema.unideb.hu.utility.interfaces.IController;
 import magiccinema.unideb.hu.utility.interfaces.IEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
 
 public class RootLayoutController implements IController {
 
@@ -45,7 +48,7 @@ public class RootLayoutController implements IController {
     }
 
     @Override
-    public void setData(IEntity entity) {
+    public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
 
     }
 }

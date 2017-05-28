@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import magiccinema.unideb.hu.utility.controls.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -29,19 +30,21 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="175.0" minHeight="4.0" prefHeight="14.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Movie title:" />
             <Label text="Time:" GridPane.rowIndex="1" />
-            <Label text="Theatre:" GridPane.rowIndex="2" />
+            <Label alignment="TOP_LEFT" text="Theatre:" GridPane.rowIndex="2" />
             <Label text="Available seats:" GridPane.rowIndex="3" />
             <Label fx:id="movieTitleLabel" text="Label" GridPane.columnIndex="1" />
             <Label fx:id="timeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="theatreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="theatreLabel" alignment="TOP_LEFT" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="availableSeatLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Number of tickets:" GridPane.rowIndex="4" />
+            <NumberSpinner fx:id="ticketsNumberSpinner" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>

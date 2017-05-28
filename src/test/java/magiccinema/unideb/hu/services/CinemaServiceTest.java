@@ -105,6 +105,14 @@ public class CinemaServiceTest {
         when(showTimeDaoMock.getName()).thenReturn("ShowTimeDao");
 
         seatDaoMock = mock(ISeatDao.class);
+        when(seatDaoMock.getByRowColTheatreId(anyInt(), anyInt(), anyInt()))
+                .thenAnswer((Answer<Seat>) invocation ->
+                        testData.getTestTheaters().stream().findFirst().get().getSeatCollection()
+                                .stream()
+                                .filter(seat -> seat.getRowNumber() == (int) invocation.getArguments()[1] &&
+                                                seat.getSeatNumber() == (int) invocation.getArguments()[2])
+                                .findFirst()
+                                .get());
         when(seatDaoMock.getName()).thenReturn("SeatDao");
     }
 
@@ -168,6 +176,90 @@ public class CinemaServiceTest {
         int arrange = 1;
 
         int act = sut.getShowTimeById(1).getId();
+
+        Assert.assertEquals(arrange, act);
+    }
+
+    @Test
+    public void testCheckIsValidSelectEmptySeatOnLeft() {
+        boolean arrange = false;
+
+        ArrayList<Seat> selectedSeats = new ArrayList<>();
+        ArrayList<Seat> testSeats = (ArrayList<Seat>) testData.getTestTheaters().stream().findFirst().get().getSeatCollection();
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 2)
+                .findFirst()
+                .get());
+
+        boolean act = sut.checkIsValidSelect(selectedSeats, 1);
+
+        Assert.assertEquals(arrange, act);
+    }
+
+    @Test
+    public void testCheckIsValidSelectEmptySeatOnRight() {
+        boolean arrange = false;
+
+        ArrayList<Seat> selectedSeats = new ArrayList<>();
+        ArrayList<Seat> testSeats = (ArrayList<Seat>) testData.getTestTheaters().stream().findFirst().get().getSeatCollection();
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 7)
+                .findFirst()
+                .get());
+
+        boolean act = sut.checkIsValidSelect(selectedSeats, 1);
+
+        Assert.assertEquals(arrange, act);
+    }
+
+    @Test
+    public void testCheckIsValidSelectOnInValidSelect() {
+        boolean arrange = false;
+
+        ArrayList<Seat> selectedSeats = new ArrayList<>();
+        ArrayList<Seat> testSeats = (ArrayList<Seat>) testData.getTestTheaters().stream().findFirst().get().getSeatCollection();
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 1)
+                .findFirst()
+                .get());
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 3)
+                .findFirst()
+                .get());
+
+        boolean act = sut.checkIsValidSelect(selectedSeats, 1);
+
+        Assert.assertEquals(arrange, act);
+    }
+
+    @Test
+    public void testCheckIsValidSelectOnValidSelect() {
+        boolean arrange = true;
+
+        ArrayList<Seat> selectedSeats = new ArrayList<>();
+        ArrayList<Seat> testSeats = (ArrayList<Seat>) testData.getTestTheaters().stream().findFirst().get().getSeatCollection();
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 1)
+                .findFirst()
+                .get());
+
+        selectedSeats.add(testSeats
+                .stream()
+                .filter(seat -> seat.getRowNumber() == 1 && seat.getSeatNumber() == 2)
+                .findFirst()
+                .get());
+
+        boolean act = sut.checkIsValidSelect(selectedSeats, 1);
 
         Assert.assertEquals(arrange, act);
     }

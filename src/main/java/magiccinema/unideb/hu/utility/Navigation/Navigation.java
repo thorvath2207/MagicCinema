@@ -38,7 +38,7 @@ public class Navigation implements INavigation {
                 }
 
                 if (view.getController() != null && parameter != null){
-                    view.getController().setData(parameter.getEntity());
+                    view.getController().setData(parameter.getEntity(), parameter.getAdditionalParameters());
                 }
 
                 this.rootLayout.setCenter(viewNode);

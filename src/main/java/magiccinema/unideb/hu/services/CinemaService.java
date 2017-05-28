@@ -99,9 +99,51 @@ public class CinemaService implements ICinemaService {
         }
     }
 
-    @Override
-    public List<Seat> updateSeatListForSelector(List<Seat> selectedSeats, int showTimeid) {
-        return null;
+    public boolean checkIsValidSelect(List<Seat> selectedSeats, int showTimeId) {
+        ShowTime showTime = this.showTimeDao.getById(showTimeId);
+        List<Seat> currentSeats = (List<Seat>) showTime.getTheater().getSeatCollection();
+
+        currentSeats.stream().forEach(seat -> {
+            seat.setAvailable(this.getSeatIsAvailableAtShowTime(seat.getId(), showTimeId));
+            seat.setAvailable(!selectedSeats.contains(seat));
+        });
+        final boolean[] result = {true};
+        currentSeats
+                .stream()
+                .filter(seat -> seat.getIsAvailable())
+                .forEach(seat -> {
+                    Seat left = null;
+                    Seat right = null;
+
+                    if (seat.getSeatNumber() >= 2) {
+                        left = this.seatDao.getByRowColTheatreId(seat.getTheater().getId(), seat.getRowNumber(), seat.getSeatNumber() - 1);
+                    }
+                    if (seat.getSeatNumber() <= seat.getTheater().getRowsCapacity() - 1) {
+                        right = this.seatDao.getByRowColTheatreId(seat.getTheater().getId(), seat.getRowNumber(), seat.getSeatNumber() + 1);
+                    }
+
+                    if (left != null &&
+                            (!left.getIsAvailable() || selectedSeats.contains(left)) &&
+                            right == null) {
+                        result[0] = false;
+                    }
+
+                    if (right != null &&
+                            (!right.getIsAvailable() || selectedSeats.contains(right)) &&
+                            left == null) {
+                        result[0] = false;
+                    }
+
+                    if (right != null &&
+                            (!right.getIsAvailable() || selectedSeats.contains(right)) &&
+                            left != null &&
+                            (!left.getIsAvailable() || selectedSeats.contains(left))) {
+                        result[0] = false;
+                    }
+                });
+
+
+        return result[0];
     }
 
     public List<ShowTime> getUpComingShowTimes() {

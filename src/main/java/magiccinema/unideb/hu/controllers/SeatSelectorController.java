@@ -19,6 +19,7 @@ import magiccinema.unideb.hu.services.interfaces.ICinemaService;
 import magiccinema.unideb.hu.utility.DialogService;
 import magiccinema.unideb.hu.models.SeatUi;
 import magiccinema.unideb.hu.utility.ServiceLocator;
+import magiccinema.unideb.hu.utility.constans.AdditionalParameters;
 import magiccinema.unideb.hu.utility.constans.Views;
 import magiccinema.unideb.hu.utility.exceptions.ServiceNotFoundException;
 import magiccinema.unideb.hu.utility.interfaces.IController;
@@ -28,10 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SeatSelectorController implements IController {
-    protected static Logger logger = LoggerFactory.getLogger(RootLayoutController.class);
+    protected static Logger logger = LoggerFactory.getLogger(SeatSelectorController.class);
 
     private final Navigation navigationService;
     private final DialogService dialogService;
@@ -46,8 +48,10 @@ public class SeatSelectorController implements IController {
 
     private List<Seat> seats;
 
+    private int ticketQty;
+
     public SeatSelectorController() throws ServiceNotFoundException {
-        this.navigationService = (Navigation) ServiceLocator.getService("navigation");
+        this.navigationService = (Navigation) ServiceLocator.getService("Navigation");
         this.dialogService = (DialogService) ServiceLocator.getService("DialogService");
         this.cinemaService = (ICinemaService) ServiceLocator.getService("CinemaService");
     }
@@ -72,7 +76,7 @@ public class SeatSelectorController implements IController {
     }
 
     @Override
-    public void setData(IEntity entity) {
+    public void setData(IEntity entity, HashMap<AdditionalParameters, Integer> addinParams) {
         ShowTime showTime = (ShowTime) entity;
         this.resetData();
         if (showTime != null) {
@@ -123,6 +127,8 @@ public class SeatSelectorController implements IController {
             this.selectedSeats.remove(senderSeatUi);
         }
 
+        if (this.selectedSeats.size() == this.ticketQty) {
 
+        }
     }
 }
