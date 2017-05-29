@@ -24,6 +24,9 @@ public class Movie implements IEntity {
     @Column(name = "cover_picture", nullable = true)
     private byte[] image;
 
+    @Column(name = "length", nullable = false)
+    private int lenght;
+
     @ManyToMany
     private Collection<Actor> actorsCollection;
 
@@ -32,6 +35,14 @@ public class Movie implements IEntity {
 
     public Movie() {
 
+    }
+
+    public int getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
     }
 
     public Movie(String title) {

@@ -85,8 +85,9 @@ public class CinemaService implements ICinemaService {
             return false;
         }
 
-        Collection<Seat> reservedSeats = showTime.getTicketCollection()
+        Collection<Seat> reservedSeats = this.ticketDao.getAll()
                 .stream()
+                .filter(t -> t.getShowTime().getId() == showTimeId)
                 .map(Ticket::getSeat)
                 .collect(Collectors.toList());
 
@@ -145,7 +146,6 @@ public class CinemaService implements ICinemaService {
     }
 
     public void reservationCreate(Reservation reservation) {
-        //reservation.getTicketCollection().forEach(ticket ->  this.ticketDao.add(ticket));
         this.reservationDao.add(reservation);
     }
 

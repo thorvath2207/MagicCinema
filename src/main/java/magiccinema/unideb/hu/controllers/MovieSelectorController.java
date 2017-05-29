@@ -3,11 +3,14 @@ package magiccinema.unideb.hu.controllers;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import magiccinema.unideb.hu.models.Actor;
 import magiccinema.unideb.hu.models.Genre;
@@ -25,6 +28,10 @@ import magiccinema.unideb.hu.utility.navigation.NavigationParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +64,9 @@ public class MovieSelectorController implements IController {
 
     @FXML
     private Button nextBtn;
+
+    @FXML
+    private ImageView coverImageView;
 
     private Movie selectedMovie;
 
@@ -109,6 +119,22 @@ public class MovieSelectorController implements IController {
             this.movieGenresLabel.setText(this.getGenreLabel(movie.getGenresCollection()));
             this.movieActorsLabel.setText(this.getActorsLabel(movie.getActorsCollection()));
             this.movieShowTimesLabel.setText(String.valueOf(this.cinemaService.upComingShowTimesCounter(movie.getId())));
+
+            if(movie.getImage() != null) {
+                byte[] byteArray = movie.getImage();
+                ByteArrayInputStream in = new ByteArrayInputStream(byteArray);
+                try {
+                    BufferedImage read = ImageIO.read(in);
+                    coverImageView.setImage(SwingFXUtils.toFXImage(read, null));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String url;
+                url = this.getClass().getResource("noCover.jpg").toExternalForm();
+                Image coverImage = new Image(url, 120, 160, false, false);
+                coverImageView.setImage(coverImage);
+            }
 
             this.nextBtn.setDisable(false);
         } else {

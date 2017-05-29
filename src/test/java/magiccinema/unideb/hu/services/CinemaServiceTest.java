@@ -33,6 +33,10 @@ public class CinemaServiceTest {
     private static IShowTimeDao showTimeDaoMock;
     @Mock
     private static ISeatDao seatDaoMock;
+
+    @Mock
+    private static IReservationDao reservationDaoMock;
+
     private static CinemaService sut;
 
     @BeforeClass
@@ -114,6 +118,9 @@ public class CinemaServiceTest {
                                 .findFirst()
                                 .get());
         when(seatDaoMock.getName()).thenReturn("SeatDao");
+
+        reservationDaoMock = mock(IReservationDao.class);
+        when(reservationDaoMock.getName()).thenReturn("ReservationDao");
     }
 
     private static void registerMockedServices() {
@@ -124,6 +131,7 @@ public class CinemaServiceTest {
         ServiceLocator.registerService(theaterDaoMock);
         ServiceLocator.registerService(showTimeDaoMock);
         ServiceLocator.registerService(seatDaoMock);
+        ServiceLocator.registerService(reservationDaoMock);
     }
 
     @Test

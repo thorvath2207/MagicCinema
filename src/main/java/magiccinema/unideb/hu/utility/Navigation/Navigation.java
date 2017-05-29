@@ -88,6 +88,7 @@ public class Navigation implements INavigation {
             if (this.rootLayout != null) {
                 Scene scene = new Scene(this.rootLayout);
                 scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+                this.primaryStage.setTitle("Magic cinema reservation system");
                 this.primaryStage.setScene(scene);
             }
         }

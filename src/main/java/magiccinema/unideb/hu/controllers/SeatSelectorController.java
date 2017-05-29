@@ -115,7 +115,8 @@ public class SeatSelectorController implements IController {
                         if (!isAvailableAtShowTime) {
                             SeatUi toggleButton = new SeatUi(String.valueOf(seat.getSeatNumber()), new ImageView(reservedSeat), seat);
                             toggleButton.setDisable(true);
-                            this.seatButtonPane.add(toggleButton, seat.getSeatNumber() - 1, seat.getRowNumber() - 1);
+                            toggleButton.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
+                            this.seatButtonPane.add(toggleButton, seat.getSeatNumber(), seat.getRowNumber() - 1);
                         } else {
                             SeatUi toggleButton = new SeatUi(String.valueOf(seat.getSeatNumber()), new ImageView(freeSeat), seat);
                             toggleButton.setOnAction(e -> {

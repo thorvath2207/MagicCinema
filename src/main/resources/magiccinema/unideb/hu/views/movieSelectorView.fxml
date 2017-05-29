@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -8,8 +9,8 @@
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" text="Next" onMouseClicked="#handleNextClick"/>
-            <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Cancel" onMouseClicked="#handleCancelClick" />
+            <Button fx:id="nextBtn" layoutX="534.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#handleNextClick" text="Next" />
+            <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#handleCancelClick" text="Cancel" />
          </children>
       </AnchorPane>
    </bottom>
@@ -20,27 +21,29 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="197.0" minHeight="10.0" prefHeight="191.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Title:" />
-            <Label text="Genres:" GridPane.rowIndex="1" />
-            <Label text="Actors:" GridPane.rowIndex="2" />
-            <Label text="ShowTimes:" GridPane.rowIndex="3" />
-            <Label fx:id="movieTitleLabel" text="Label" GridPane.columnIndex="1" />
-            <Label fx:id="movieGenresLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="movieActorsLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="movieShowTimesLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Title:" GridPane.rowIndex="1" />
+            <Label text="Genres:" GridPane.rowIndex="2" />
+            <Label text="Actors:" GridPane.rowIndex="3" />
+            <Label text="ShowTimes:" GridPane.rowIndex="4" />
+            <Label fx:id="movieTitleLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="movieGenresLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="movieActorsLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="movieShowTimesLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ImageView fx:id="coverImageView" fitHeight="147.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </center>
    <left>
       <TableView fx:id="moviesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="movieTitleColumn" prefWidth="75.0" text="Title" />
+          <TableColumn fx:id="movieTitleColumn" prefWidth="199.0" text="Title" />
         </columns>
       </TableView>
    </left>
